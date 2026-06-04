@@ -45,3 +45,5 @@ android.archs = arm64-v8a
 
 # (str) The format used to package the app
 android.release_artifact = apk
+# Automatically accept the SDK licenses for the automation worker
+android.accept_sdk_license = True
