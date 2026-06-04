@@ -1,7 +1,7 @@
 name: Build Prig AI APK
 
 on:
-  workflow_dispatch: # This allows you to manually trigger the build whenever you want
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y ccache git libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev python3-pip python3-setuptools python3-dev build-essential apktool libltdl-dev EnsurePip
+        sudo apt-get install -y ccache git libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev python3-pip python3-setuptools python3-dev build-essential apktool libltdl-dev
         sudo apt-get install -y openjdk-17-jdk unzip zip tar
         sudo apt-get install -y libsqlite3-dev lld
 
@@ -30,14 +30,10 @@ jobs:
 
     - name: Build Android APK with Buildozer
       run: |
-        # Accept Android SDK licenses automatically
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
-        
-        # Run Buildozer in android debug mode
         buildozer -v android debug
       env:
-        # Prevents buildozer from pausing for user input during automated build
         BUILDOZER_WARN_ON_ROOT: 0
 
     - name: Upload Finished APK Artifact
