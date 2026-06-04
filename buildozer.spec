@@ -32,13 +32,13 @@ fullscreen = 1
 android.permissions = INTERNET, ACCESS_NETWORK_STATE
 
 # (int) Target Android API, should be as high as possible.
-android.api = 33
+android.api = 34
 
 # (int) Minimum API your APK will support (Android 8.0+)
 android.minapi = 26
 
 # (str) Android NDK version to use
-android.ndk = 25b
+android.ndk = 27.3.13750724
 
 # (bool) Use architectures for modern devices
 android.archs = arm64-v8a
