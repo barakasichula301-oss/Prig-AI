@@ -36,6 +36,8 @@ jobs:
         buildozer -v android debug
       env:
         BUILDOZER_WARN_ON_ROOT: 0
+        ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+        ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/27.3.13750724
 
     - name: Upload Finished APK Artifact
       uses: actions/upload-artifact@v4
