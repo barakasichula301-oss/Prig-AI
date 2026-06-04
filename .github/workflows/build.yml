@@ -33,7 +33,6 @@ jobs:
       run: |
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
-        buildozer android clean
         buildozer -v android debug
       env:
         BUILDOZER_WARN_ON_ROOT: 0
