@@ -1,0 +1,47 @@
+name: Build Prig AI APK
+
+on:
+  workflow_dispatch: # This allows you to manually trigger the build whenever you want
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Cloud Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ccache git libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev python3-pip python3-setuptools python3-dev build-essential apktool libltdl-dev EnsurePip
+        sudo apt-get install -y openjdk-17-jdk unzip zip tar
+        sudo apt-get install -y libsqlite3-dev lld
+
+    - name: Install Buildozer and Cython
+      run: |
+        pip install --upgrade pip
+        pip install Cython==0.29.33 buildozer
+
+    - name: Build Android APK with Buildozer
+      run: |
+        # Accept Android SDK licenses automatically
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        
+        # Run Buildozer in android debug mode
+        buildozer -v android debug
+      env:
+        # Prevents buildozer from pausing for user input during automated build
+        BUILDOZER_WARN_ON_ROOT: 0
+
+    - name: Upload Finished APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Prig-AI-App
+        path: bin/*.apk
